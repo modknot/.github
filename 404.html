@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page Not Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .lang-select-wrap{
+            position: fixed;
+            top:20px;
+            right:20px;
+        }
+        #langSelect{
+            padding: 8px 12px;
+            background:#27293d;
+            color:#fff;
+            border:1px solid #4fc3f7;
+            border-radius:4px;
+            font-size:14px;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+        .code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #4fc3f7;
+            text-shadow: 0 0 30px #2196f380;
+            animation: float 3s ease-in-out infinite;
+            letter-spacing: 8px;
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        .title {
+            font-size: 1.8rem;
+            margin-top: 12px;
+            margin-bottom: 10px;
+            opacity: 0.92;
+        }
+        .desc {
+            color: #bbbbcc;
+            max-width: 520px;
+            line-height: 1.7;
+            font-size: 1rem;
+            margin-bottom: 32px;
+        }
+        .btn-group a {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            margin: 0 8px;
+        }
+        .btn-group a:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px #1d4ed844;
+        }
+        .block-deco {
+            margin-top:40px;
+            display:flex;
+            gap:6px;
+            justify-content:center;
+        }
+        .cube {
+            width:16px;
+            height:16px;
+            background:#4fc3f777;
+            animation: blink 2s infinite alternate;
+        }
+        .cube:nth-child(2){animation-delay:0.2s}
+        .cube:nth-child(3){animation-delay:0.4s}
+        .cube:nth-child(4){animation-delay:0.6s}
+        .cube:nth-child(5){animation-delay:0.8s}
+        @keyframes blink {
+            from{opacity:0.2}
+            to{opacity:1}
+        }
+    </style>
+</head>
+<body>
+<div class="lang-select-wrap">
+    <select id="langSelect">
+        <option value="zh">简体中文</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="ru">Русский</option>
+    </select>
+</div>
+
+<div class="container">
+    <div class="code">404</div>
+    <h2 class="title" id="pageTitle"></h2>
+    <p class="desc" id="pageDesc"></p>
+    <div class="btn-group">
+        <a href="/" id="backBtn"></a>
+    </div>
+    <div class="block-deco">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+    </div>
+</div>
+
+<script>
+//多语言字典
+const langData = {
+    zh:{
+        title:"你寻找的页面迷路了",
+        desc:"这个地址不存在，可能链接错误、文件已移动或者已被删除。<br>返回主页继续游玩游戏。",
+        back:"返回游戏主页"
+    },
+    en:{
+        title:"The page you were looking for is lost",
+        desc:"This address does not exist. The link may be wrong, or the file has been moved or deleted.<br>Return home to continue the game.",
+        back:"Back to Home"
+    },
+    ja:{
+        title:"探しているページが見つかりません",
+        desc:"アドレスが存在しません。リンクの誤り、ファイルの移動または削除の可能性があります。<br>ホームに戻ってゲームを続けてください。",
+        back:"ホームへ戻る"
+    },
+    ko:{
+        title:"찾으시는 페이지를 찾을 수 없습니다",
+        desc:"해당 주소가 존재하지 않습니다. 링크 오류이거나 파일이 이동 또는 삭제되었을 수 있습니다.<br>메인으로 돌아가 게임을 계속하세요.",
+        back:"메인으로 돌아가기"
+    },
+    ru:{
+        title:"Искомая страница не найдена",
+        desc:"Этот адрес не существует. Возможно неверная ссылка, файл перемещён или удалён.<br>Вернитесь на главную чтобы продолжить игру.",
+        back:"На главную"
+    }
+};
+
+const titleEl = document.getElementById("pageTitle");
+const descEl = document.getElementById("pageDesc");
+const btnEl = document.getElementById("backBtn");
+const selectEl = document.getElementById("langSelect");
+
+//切换语言函数
+function setLang(langKey){
+    const t = langData[langKey];
+    titleEl.innerText = t.title;
+    descEl.innerHTML = t.desc;
+    btnEl.innerText = t.back;
+    document.documentElement.lang = langKey;
+}
+
+//初始化默认中文
+setLang("zh");
+
+//下拉切换事件
+selectEl.addEventListener("change",(e)=>{
+    setLang(e.target.value);
+})
+</script>
+</body>
+</html>
