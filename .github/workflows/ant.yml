@@ -1,0 +1,25 @@
+# 此工作流将使用 Ant 构建一个 Java 项目
+# 更多信息请参阅：https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-ant
+
+名称：Java CI: Java CI
+
+在：:
+  推送：:
+    分支: [ "main" ]: [ "main" ]
+  拉取请求:
+    分支: [ "main" ]: [ "main" ]
+
+职位：:
+  构建：:
+
+    运行环境：ubuntu-latest: ubuntu-latest
+
+    步骤：:
+    - 使用：actions/checkout@v4uses: actions/checkout@v4
+    - 名称：设置 JDK 11name: Set up JDK 11
+      使用：actions/setup-java@v4: actions/setup-java@v4
+      使用：:
+        java-version: '11': '11'
+        发行版：'temurin': 'temurin'
+    - 名称：使用 Ant 构建name: Build with Ant
+      运行：ant -noinput -buildfile build.xml: ant -noinput -buildfile build.xml
